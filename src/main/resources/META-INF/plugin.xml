@@ -1,0 +1,63 @@
+<idea-plugin>
+    <id>com.github.copilot.prompts</id>
+    <name>Copilot Prompt Templates</name>
+    <vendor email="support@example.com" url="https://github.com/example/copilot-prompts">Example Vendor</vendor>
+
+    <description><![CDATA[
+    A plugin that provides predefined prompt templates for GitHub Copilot chat.
+    
+    Features:
+    - Quick access to commonly used prompts
+    - Customizable prompt templates
+    - Easy integration with GitHub Copilot chat
+    - Organized prompt categories
+    
+    Simply use the "Copilot Prompts" action to open the prompt selector and choose from predefined templates
+    to enhance your GitHub Copilot chat experience.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends optional="true" config-file="copilot-integration.xml">com.github.copilot</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Tool Window -->
+        <toolWindow id="Copilot Prompts" 
+                   secondary="true" 
+                   icon="/icons/copilot-prompts.svg" 
+                   anchor="right" 
+                   factoryClass="com.github.copilot.prompts.toolwindow.CopilotPromptsToolWindowFactory"/>
+        
+        <!-- Application Service -->
+        <applicationService serviceImplementation="com.github.copilot.prompts.service.PromptService"/>
+        
+        <!-- Settings -->
+        <applicationConfigurable 
+            parentId="tools" 
+            instance="com.github.copilot.prompts.settings.PromptSettingsConfigurable"
+            id="com.github.copilot.prompts.settings"
+            displayName="Copilot Prompts"/>
+            
+        <!-- Notification Group -->
+        <notificationGroup id="Copilot Prompts" displayType="BALLOON"/>
+    </extensions>
+
+    <actions>
+        <group id="CopilotPrompts" text="Copilot Prompts" description="Copilot prompt templates">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            
+            <action id="CopilotPrompts.ShowPrompts" 
+                   class="com.github.copilot.prompts.action.ShowPromptsAction" 
+                   text="Show Prompt Templates" 
+                   description="Show predefined prompt templates for Copilot chat">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift P"/>
+            </action>
+            
+            <action id="CopilotPrompts.QuickPrompt" 
+                   class="com.github.copilot.prompts.action.QuickPromptAction" 
+                   text="Quick Prompt" 
+                   description="Quick access to favorite prompts">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt P"/>
+            </action>
+        </group>
+    </actions>
+</idea-plugin>
