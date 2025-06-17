@@ -16,8 +16,11 @@
     to enhance your GitHub Copilot chat experience.
     ]]></description>
 
+    <!-- Only depend on core IntelliJ platform - no external plugins required -->
     <depends>com.intellij.modules.platform</depends>
-    <depends optional="true" config-file="copilot-integration.xml">com.github.copilot</depends>
+    
+    <!-- GitHub Copilot integration is optional and gracefully handled -->
+    <!-- <depends optional="true" config-file="copilot-integration.xml">com.github.copilot</depends> -->
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Tool Window -->
